@@ -62,23 +62,27 @@ class HBYSApp:
     def login_screen(self):
         # Login ekranı
         self.clear_screen()
-        self.username_label = ttk.Label(self.root, text="Kullanıcı Adı:", font=("Arial", 14))
-        self.username_label.pack(pady=10)
+
+        self.username_label = ttk.Label(self.root, text="Kullanıcı Adı:", font=("Arial", 14), foreground="white", background="#2c2c2c")
+        self.username_label.pack(pady=20)
         self.username_entry = ttk.Entry(self.root, font=("Arial", 14))
         self.username_entry.pack(pady=5)
 
-        self.password_label = ttk.Label(self.root, text="Şifre:", font=("Arial", 14))
-        self.password_label.pack(pady=10)
+        self.password_label = ttk.Label(self.root, text="Şifre:", font=("Arial", 14), foreground="white", background="#2c2c2c")
+        self.password_label.pack(pady=20)
         self.password_entry = ttk.Entry(self.root, show="*", font=("Arial", 14))
         self.password_entry.pack(pady=5)
 
-        self.login_button = ttk.Button(self.root, text="Giriş Yap", command=self.check_login, width=20)
-        self.login_button.pack(pady=20)
+        self.login_button = ttk.Button(self.root, text="Giriş Yap", command=self.check_login, width=20, style="TButton")
+        self.login_button.pack(pady=30)
 
-        self.signup_button = ttk.Button(self.root, text="Hesap Oluştur", command=self.signup_screen, width=20)
+        self.signup_button = ttk.Button(self.root, text="Hesap Oluştur", command=self.signup_screen, width=20, style="TButton")
         self.signup_button.pack(pady=10)
 
-    def check_login(self):
+        # Enter tuşuna basıldığında login yapılacak
+        self.root.bind("<Return>", self.check_login_event)
+
+    def check_login(self, event=None):
         username = self.username_entry.get()
         password = self.password_entry.get()
 
@@ -87,26 +91,29 @@ class HBYSApp:
         else:
             messagebox.showerror("Hata", "Geçersiz kullanıcı adı veya şifre.")
 
+    def check_login_event(self, event):
+        self.check_login()
+
     def signup_screen(self):
         # Kayıt ekranı
         self.clear_screen()
-        self.signup_label = ttk.Label(self.root, text="Yeni Hesap Oluştur", font=("Arial", 16))
+        self.signup_label = ttk.Label(self.root, text="Yeni Hesap Oluştur", font=("Arial", 16), foreground="white", background="#2c2c2c")
         self.signup_label.pack(pady=20)
 
-        self.new_username_label = ttk.Label(self.root, text="Kullanıcı Adı:", font=("Arial", 14))
+        self.new_username_label = ttk.Label(self.root, text="Kullanıcı Adı:", font=("Arial", 14), foreground="white", background="#2c2c2c")
         self.new_username_label.pack(pady=10)
         self.new_username_entry = ttk.Entry(self.root, font=("Arial", 14))
         self.new_username_entry.pack(pady=5)
 
-        self.new_password_label = ttk.Label(self.root, text="Şifre:", font=("Arial", 14))
+        self.new_password_label = ttk.Label(self.root, text="Şifre:", font=("Arial", 14), foreground="white", background="#2c2c2c")
         self.new_password_label.pack(pady=10)
         self.new_password_entry = ttk.Entry(self.root, show="*", font=("Arial", 14))
         self.new_password_entry.pack(pady=5)
 
-        self.signup_button = ttk.Button(self.root, text="Kaydol", command=self.register_user, width=20)
+        self.signup_button = ttk.Button(self.root, text="Kaydol", command=self.register_user, width=20, style="TButton")
         self.signup_button.pack(pady=20)
 
-        self.back_button = ttk.Button(self.root, text="Geri", command=self.login_screen, width=20)
+        self.back_button = ttk.Button(self.root, text="Geri", command=self.login_screen, width=20, style="TButton")
         self.back_button.pack(pady=10)
 
     def register_user(self):
@@ -122,65 +129,65 @@ class HBYSApp:
     def main_screen(self, username):
         # Ana ekran
         self.clear_screen()
-        self.welcome_label = ttk.Label(self.root, text=f"Hoş geldiniz, {username}!", font=("Arial", 16))
+        self.welcome_label = ttk.Label(self.root, text=f"Hoş geldiniz, {username}!", font=("Arial", 16), foreground="white", background="#2c2c2c")
         self.welcome_label.pack(pady=20)
 
-        self.patient_button = ttk.Button(self.root, text="Hasta Yönetimi", command=self.patients_screen, width=30)
+        self.patient_button = ttk.Button(self.root, text="Hasta Yönetimi", command=self.patients_screen, width=30, style="TButton")
         self.patient_button.pack(pady=10)
 
-        self.logout_button = ttk.Button(self.root, text="Çıkış Yap", command=self.logout, width=30)
+        self.logout_button = ttk.Button(self.root, text="Çıkış Yap", command=self.logout, width=30, style="TButton")
         self.logout_button.pack(pady=10)
 
     def patients_screen(self):
         # Hasta yönetimi ekranı
         self.clear_screen()
-        self.patients_label = ttk.Label(self.root, text="Hasta Kayıtları", font=("Arial", 16))
+        self.patients_label = ttk.Label(self.root, text="Hasta Kayıtları", font=("Arial", 16), foreground="white", background="#2c2c2c")
         self.patients_label.pack(pady=20)
 
-        self.add_patient_button = ttk.Button(self.root, text="Hasta Ekle", command=self.add_patient_screen, width=30)
+        self.add_patient_button = ttk.Button(self.root, text="Hasta Ekle", command=self.add_patient_screen, width=30, style="TButton")
         self.add_patient_button.pack(pady=10)
 
-        self.patient_list_button = ttk.Button(self.root, text="Hasta Listesi", command=self.show_patients, width=30)
+        self.patient_list_button = ttk.Button(self.root, text="Hasta Listesi", command=self.show_patients, width=30, style="TButton")
         self.patient_list_button.pack(pady=10)
 
-        self.back_button = ttk.Button(self.root, text="Geri", command=self.main_screen, width=30)
+        self.back_button = ttk.Button(self.root, text="Geri", command=self.main_screen, width=30, style="TButton")
         self.back_button.pack(pady=10)
 
     def add_patient_screen(self):
         # Hasta ekleme ekranı
         self.clear_screen()
-        self.add_patient_label = ttk.Label(self.root, text="Yeni Hasta Ekle", font=("Arial", 16))
+        self.add_patient_label = ttk.Label(self.root, text="Yeni Hasta Ekle", font=("Arial", 16), foreground="white", background="#2c2c2c")
         self.add_patient_label.pack(pady=20)
 
-        self.name_label = ttk.Label(self.root, text="İsim:", font=("Arial", 14))
+        self.name_label = ttk.Label(self.root, text="İsim:", font=("Arial", 14), foreground="white", background="#2c2c2c")
         self.name_label.pack(pady=10)
         self.name_entry = ttk.Entry(self.root, font=("Arial", 14))
         self.name_entry.pack(pady=5)
 
-        self.surname_label = ttk.Label(self.root, text="Soyisim:", font=("Arial", 14))
+        self.surname_label = ttk.Label(self.root, text="Soyisim:", font=("Arial", 14), foreground="white", background="#2c2c2c")
         self.surname_label.pack(pady=10)
         self.surname_entry = ttk.Entry(self.root, font=("Arial", 14))
         self.surname_entry.pack(pady=5)
 
-        self.tc_label = ttk.Label(self.root, text="TC Kimlik No:", font=("Arial", 14))
+        self.tc_label = ttk.Label(self.root, text="TC Kimlik No:", font=("Arial", 14), foreground="white", background="#2c2c2c")
         self.tc_label.pack(pady=10)
         self.tc_entry = ttk.Entry(self.root, font=("Arial", 14))
         self.tc_entry.pack(pady=5)
 
-        self.birth_label = ttk.Label(self.root, text="Doğum Tarihi:", font=("Arial", 14))
+        self.birth_label = ttk.Label(self.root, text="Doğum Tarihi:", font=("Arial", 14), foreground="white", background="#2c2c2c")
         self.birth_label.pack(pady=10)
         self.birth_entry = ttk.Entry(self.root, font=("Arial", 14))
         self.birth_entry.pack(pady=5)
 
-        self.phone_label = ttk.Label(self.root, text="Telefon Numarası:", font=("Arial", 14))
+        self.phone_label = ttk.Label(self.root, text="Telefon Numarası:", font=("Arial", 14), foreground="white", background="#2c2c2c")
         self.phone_label.pack(pady=10)
         self.phone_entry = ttk.Entry(self.root, font=("Arial", 14))
         self.phone_entry.pack(pady=5)
 
-        self.add_patient_button = ttk.Button(self.root, text="Hasta Ekle", command=self.add_patient_to_db, width=20)
+        self.add_patient_button = ttk.Button(self.root, text="Hasta Ekle", command=self.add_patient_to_db, width=20, style="TButton")
         self.add_patient_button.pack(pady=20)
 
-        self.back_button = ttk.Button(self.root, text="Geri", command=self.patients_screen, width=20)
+        self.back_button = ttk.Button(self.root, text="Geri", command=self.patients_screen, width=20, style="TButton")
         self.back_button.pack(pady=10)
 
     def add_patient_to_db(self):
@@ -202,15 +209,15 @@ class HBYSApp:
         self.clear_screen()
         hastalar = hastalari_listele()
 
-        self.patient_list_label = ttk.Label(self.root, text="Hasta Listesi", font=("Arial", 16))
+        self.patient_list_label = ttk.Label(self.root, text="Hasta Listesi", font=("Arial", 16), foreground="white", background="#2c2c2c")
         self.patient_list_label.pack(pady=20)
 
         for hasta in hastalar:
             patient_info = f"İsim: {hasta[1]} {hasta[2]}, TC: {hasta[3]}, Doğum Tarihi: {hasta[4]}, Telefon: {hasta[5]}"
-            patient_label = ttk.Label(self.root, text=patient_info, font=("Arial", 12))
+            patient_label = ttk.Label(self.root, text=patient_info, font=("Arial", 12), foreground="white", background="#2c2c2c")
             patient_label.pack(pady=5)
 
-        self.back_button = ttk.Button(self.root, text="Geri", command=self.patients_screen, width=30)
+        self.back_button = ttk.Button(self.root, text="Geri", command=self.patients_screen, width=30, style="TButton")
         self.back_button.pack(pady=10)
 
     def logout(self):
@@ -219,6 +226,11 @@ class HBYSApp:
     def clear_screen(self):
         for widget in self.root.winfo_children():
             widget.destroy()
+
+# Modern tema için ttk.Styling ayarı
+style = ttk.Style()
+style.configure("TButton", font=("Arial", 12), padding=10, background="#555555", foreground="white", relief="flat")
+style.map("TButton", background=[("active", "#888888")])
 
 if __name__ == "__main__":
     create_db()
