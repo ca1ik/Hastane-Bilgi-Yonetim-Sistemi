@@ -56,7 +56,6 @@ class HBYSApp:
         self.root = root
         self.root.title("HBYS Sistemi")
         self.root.geometry("800x600")
-        self.root.config(bg="#f4f4f4")
         self.login_screen()
 
     def login_screen(self):
