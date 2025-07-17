@@ -167,4 +167,61 @@ class HBYSApp:
         self.tc_entry = ttk.Entry(self.root, font=("Arial", 14))
         self.tc_entry.pack(pady=5)
 
-        self.birth_label =
+        self.birth_label = ttk.Label(self.root, text="Doğum Tarihi:", font=("Arial", 14))
+        self.birth_label.pack(pady=10)
+        self.birth_entry = ttk.Entry(self.root, font=("Arial", 14))
+        self.birth_entry.pack(pady=5)
+
+        self.phone_label = ttk.Label(self.root, text="Telefon Numarası:", font=("Arial", 14))
+        self.phone_label.pack(pady=10)
+        self.phone_entry = ttk.Entry(self.root, font=("Arial", 14))
+        self.phone_entry.pack(pady=5)
+
+        self.add_patient_button = ttk.Button(self.root, text="Hasta Ekle", command=self.add_patient_to_db, width=20)
+        self.add_patient_button.pack(pady=20)
+
+        self.back_button = ttk.Button(self.root, text="Geri", command=self.patients_screen, width=20)
+        self.back_button.pack(pady=10)
+
+    def add_patient_to_db(self):
+        isim = self.name_entry.get()
+        soyisim = self.surname_entry.get()
+        tc_no = self.tc_entry.get()
+        dogum_tarihi = self.birth_entry.get()
+        telefon_no = self.phone_entry.get()
+
+        if isim and soyisim and tc_no and dogum_tarihi and telefon_no:
+            hasta_ekle(isim, soyisim, tc_no, dogum_tarihi, telefon_no)
+            messagebox.showinfo("Başarılı", "Hasta kaydı başarıyla eklendi.")
+            self.patients_screen()
+        else:
+            messagebox.showerror("Hata", "Tüm alanları doldurduğunuzdan emin olun.")
+
+    def show_patients(self):
+        # Hasta listesi
+        self.clear_screen()
+        hastalar = hastalari_listele()
+
+        self.patient_list_label = ttk.Label(self.root, text="Hasta Listesi", font=("Arial", 16))
+        self.patient_list_label.pack(pady=20)
+
+        for hasta in hastalar:
+            patient_info = f"İsim: {hasta[1]} {hasta[2]}, TC: {hasta[3]}, Doğum Tarihi: {hasta[4]}, Telefon: {hasta[5]}"
+            patient_label = ttk.Label(self.root, text=patient_info, font=("Arial", 12))
+            patient_label.pack(pady=5)
+
+        self.back_button = ttk.Button(self.root, text="Geri", command=self.patients_screen, width=30)
+        self.back_button.pack(pady=10)
+
+    def logout(self):
+        self.login_screen()
+
+    def clear_screen(self):
+        for widget in self.root.winfo_children():
+            widget.destroy()
+
+if __name__ == "__main__":
+    create_db()
+    root = tk.Tk()
+    app = HBYSApp(root)
+    root.mainloop()
